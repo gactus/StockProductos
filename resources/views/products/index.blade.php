@@ -11,7 +11,7 @@
                 <a href="{{route('products.create')}}">Crear Producto</a>
             </div>
 			<div class="flex px-2 my-2 overflow-hidden">
-                <a href="{{route('offices.create')}}">Asociar Producto</a
+                <a href="{{route('offices.create')}}">Asociar Producto</a>
             </div>
 		</div>
 	</x-slot>
