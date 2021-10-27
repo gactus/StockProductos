@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\http\Requests\CreateProductRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,14 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        return view('products.index')->with(compact('request'));
+        if(Auth::user()!=null)
+        {
+            return view('products.index')->with(compact('request'));
+        }else
+        {
+            return view('auth.login');
+        }
+
     }
 
     /**
