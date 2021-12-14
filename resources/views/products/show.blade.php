@@ -34,37 +34,40 @@
                     <div class="px-4 py-5 bg-white xl:p-12">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
+                                @php
+
+                                @endphp
                                 {{Form::label('txtCodigo','Código Producto',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                <span class="text-indigo-700"> {{$codProducto}}</span>
+                                <span class="text-indigo-700"> {{$product['product_code']}}</span>
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 {{Form::label('txtNombre','Nombre del Producto',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                <span class="text-indigo-700">{{$nombreProducto}}</span>
+                                <span class="text-indigo-700">{{$product['product_name']}}</span>
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 {{Form::label('lstCategoria','Categoría',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                <span class="text-indigo-700">{{$categoriaProducto}}</span>
+                                <span class="text-indigo-700">{{$product->categories->category_name}}</span>
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 {{Form::label('lstSucursal','Sucursal',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                <span class="text-indigo-700">{{$sucursalProducto}}</span>
+                                <span class="text-indigo-700">{{$product->branches[0]['branch_name'] }}</span>
                             </div>
 
                             <div class="col-span-6">
                                 {{Form::label('txtDescripcion','Descripción',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                <span class="text-indigo-700"> {{$descripcionProducto}}</span>
+                                <span class="text-indigo-700"> {{$product['description']}}</span>
                             </div>
 
                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                 {{Form::label('txtPrecio','Precio',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                <span class="text-indigo-700">{{$precioProducto}}</span>
+                                <span class="text-indigo-700">${{$product['product_price']}}</span>
                             </div>
                             <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                 {{Form::label('txtStock','Stock',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                <span class="text-indigo-700">{{$stockProducto}}</span>
+                                <span class="text-indigo-700">{{$product['product_stock']}}</span>
                             </div>
 
                         </div>

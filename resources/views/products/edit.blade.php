@@ -26,7 +26,7 @@
                         </p>
                     </div>
                 </div>
-                {!! Form::open(['route' => ['products.update',$id], 'method'=>'put']) !!}
+                {!! Form::open(['route' => ['products.update',$product['product_id']], 'method'=>'put']) !!}
                 <div class="shadow overflow-hidden sm:rounded-md bg-white">
                     <x-jet-validation-errors class="mb-4"></x-jet-validation-errors>
                 </div>
@@ -35,37 +35,37 @@
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
                                 {{Form::label('txtCodigo','Código Producto',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                {{Form::text('txtCodigo',$codProducto,['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
+                                {{Form::text('txtCodigo',$product['product_code'],['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 {{Form::label('txtNombre','Nombre del Producto',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                {{Form::text('txtNombre',$nombreProducto,['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
+                                {{Form::text('txtNombre',$product['product_name'],['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 {{Form::label('lstCategoria','Categoría',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                {{Form::select('lstCategoria', ['' =>'Seleccione','1' => 'Cosméticos', '2' => 'Higiene','3' => 'Salud'],$categoriaProducto,['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
+                                {{Form::select('lstCategoria', ['' =>'Seleccione','1' => 'Cosméticos', '2' => 'Higiene','3' => 'Salud'],$product['category_id'],['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 {{Form::label('lstSucursal','Sucursal',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                {{Form::select('lstSucursal', ['' =>'Seleccione','1' => 'STGO-1', '2' => 'STGO-2','3' => 'STGO-3'],$sucursalProducto,['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
+                                {{Form::select('lstSucursal', ['' =>'Seleccione','1' => 'STGO-1', '2' => 'STGO-2','3' => 'STGO-3'],$product->branches[0]['branch_id'],['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
                                 </select>
                             </div>
 
                             <div class="col-span-6">
                                 {{Form::label('txtDescripcion','Descripción',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                {{Form::text('txtDescripcion',$descripcionProducto,['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
+                                {{Form::text('txtDescripcion',$product['description'],['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
                             </div>
 
                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                 {{Form::label('txtPrecio','Precio',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                {{Form::text('txtPrecio',$precioProducto,['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
+                                {{Form::text('txtPrecio',$product['product_price'],['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
                             </div>
                             <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                 {{Form::label('txtStock','Stock',['class'=>'block text-sm font-medium text-gray-700'])}}
-                                {{Form::text('txtStock',$stockProducto,['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
+                                {{Form::text('txtStock',$product['product_stock'],['class'=>'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'])}}
                             </div>
 
                         </div>

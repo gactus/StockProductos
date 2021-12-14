@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\http\Requests\CreateProductRequest;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\BranchProduct;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -17,7 +20,8 @@ class ProductController extends Controller
     {
         if(Auth::user()!=null)
         {
-            return view('products.index')->with(compact('request'));
+            $products=Product::search($request);
+            return view('products.index')->with('products',$products)->with('request',$request);
         }else
         {
             return view('auth.login');
@@ -44,9 +48,30 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $input = $request->validated();
-        echo "Se han registrado los siguientes datos: </br>";
-        dd($input);
+        if($input)
+        {
+            $product= new Product();
+            $product->product_name=$input['txtNombre'];
+            $product->product_status=true;
+            $product->product_code=$input['txtCodigo'];
+            $product->description=$input['txtDescripcion'];
+            $product->product_stock=$input['txtStock'];
+            $product->product_price=$input['txtPrecio'];
+            $product->category_id=$input['lstCategoria'];
+            $productId=$product->create($product->toArray())->product_id;
+
+            $productBranche= new BranchProduct();
+            $productBranche->product_id=$productId;
+            $productBranche->branch_id=$input['lstSucursal'];
+            $productBranche->save();
+            $products=Product::all();
+            return view('products.index')->with('products',$products);
+        }else{
+            return view('errors.badgateway');
+        }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -56,35 +81,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        if ($id == 1){
-            $codProducto = "PROD-1";
-            $nombreProducto = "Tangananica";
-            $categoriaProducto = "Cosméticos";
-            $sucursalProducto = "STGO-2";
-            $descripcionProducto = "Cosméticos si no le gusta en tanganana";
-            $precioProducto = "$ 5.000";
-            $stockProducto = 500;
-        }else{
-            if ($id == 2){
-                $codProducto = "PROD-2";
-                $nombreProducto = "Tangananicanica";
-                $categoriaProducto = "Cosméticos";
-                $sucursalProducto = "STGO-1";
-                $descripcionProducto = "Cosméticos si no le gusta en tangananica";
-                $precioProducto = "$ 5.500";
-                $stockProducto = 450;
-            }else{
-                $codProducto = "PROD-3";
-                $nombreProducto = "Tanganana";
-                $categoriaProducto = "Cosméticos";
-                $sucursalProducto = "STGO-3";
-                $descripcionProducto = "Cosméticos si no le gusta en tangananicanica";
-                $precioProducto = "$ 5.500";
-                $stockProducto = 450;
-            }
-        }
-        return view('products.show')->with(compact('codProducto','nombreProducto','categoriaProducto','sucursalProducto','descripcionProducto','precioProducto','stockProducto'));
+        $product=Product::where('product_id', $id)->first();
+        return view('products.show')->with(compact('product',$product));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -94,34 +94,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        if ($id == 1){
-            $codProducto = "PROD-1";
-            $nombreProducto = "Tangananica";
-            $categoriaProducto = 1;
-            $sucursalProducto = 2;
-            $descripcionProducto = "Cosméticos si no le gusta en tanganana";
-            $precioProducto = 5000;
-            $stockProducto = 500;
-        }else{
-            if ($id == 2){
-                $codProducto = "PROD-2";
-                $nombreProducto = "Tangananicanica";
-                $categoriaProducto = 1;
-                $sucursalProducto = 1;
-                $descripcionProducto = "Cosméticos si no le gusta en tangananica";
-                $precioProducto = 5500;
-                $stockProducto = 450;
-            }else{
-                $codProducto = "PROD-3";
-                $nombreProducto = "Tanganana";
-                $categoriaProducto = 1;
-                $sucursalProducto = 3;
-                $descripcionProducto = "Cosméticos si no le gusta en tangananicanica";
-                $precioProducto = 5500;
-                $stockProducto = 450;
-            }
-        }
-        return view('products.edit')->with(compact('id','codProducto','nombreProducto','categoriaProducto','sucursalProducto','descripcionProducto','precioProducto','stockProducto'));
+        $product=Product::where('product_id', $id)->first();
+        return view('products.edit')->with(compact('product',$product));
     }
 
     /**
@@ -134,17 +108,34 @@ class ProductController extends Controller
     public function update(CreateProductRequest $request, $id)
     {
        $input = $request->validated();
-        dd("Se han editado los siguientes datos: " , $input , "para el id: " , $id);
+       $product=Product::where('product_id', $id)->first();
+       $productBranch=BranchProduct::where('product_id', $id)->first();
+       if($product != null)
+       {
+            $product->product_name=$input['txtNombre'];
+            $product->product_status=true;
+            $product->product_code=$input['txtCodigo'];
+            $product->description=$input['txtDescripcion'];
+            $product->product_stock=$input['txtStock'];
+            $product->product_price=$input['txtPrecio'];
+            $product->category_id=$input['lstCategoria'];
+            $product->save();
+            $productBranch->product_id=$product->product_id;
+            $productBranch->branch_id=$input['lstSucursal'];
+            $productBranch->save();
+       }
+       $products=Product::all();
+       return view('products.index')->with('products',$products);
     }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product )
     {
-        dd("Se ha eliminado el registro asociado al id: " . $id);
+        $product->delete();
     }
+
 }

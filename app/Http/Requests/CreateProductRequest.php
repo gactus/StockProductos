@@ -30,7 +30,7 @@ class CreateProductRequest extends FormRequest
             'lstSucursal'       =>  'required',
             'txtDescripcion'    =>  'required|string|min:10|max:100',
             'txtPrecio'         =>  'required|integer|min:100|max:99999',
-            'txtStock'          =>  'required|integer|min:20|max:1000'
+            'txtStock'          =>  'required|integer|min:20|max:1000',
         ];
     }
 }

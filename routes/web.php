@@ -17,9 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-route::resource('products',\App\Http\Controllers\ProductController::class);
-route::resource('offices',\App\Http\Controllers\OfficeController::class);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return redirect('/products');
 })->name('dashboard');

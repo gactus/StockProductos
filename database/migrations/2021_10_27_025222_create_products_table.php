@@ -18,10 +18,13 @@ class CreateProductsTable extends Migration
             $table->boolean('product_status');
             $table->string('product_name',100);
             $table->string('product_code',6);
+            $table->string('description',250);
             $table->integer('product_stock');
             $table->bigInteger('product_price');
-            $table->foreignId('category_id');
+            $table->bigInteger('category_id');
+            $table->bigInteger('branch_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

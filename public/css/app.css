@@ -985,11 +985,11 @@
 .leading-4 {
     line-height: 1rem;
 }
-.leading-6 {
-    line-height: 1.5rem;
-}
 .leading-normal {
     line-height: 1.5;
+}
+.leading-6 {
+    line-height: 1.5rem;
 }
 .tracking-widest {
     letter-spacing: 0.1em;
@@ -1057,6 +1057,10 @@
     --tw-text-opacity: 1;
     color: rgba(16, 185, 129, var(--tw-text-opacity));
 }
+.text-yellow-600 {
+    --tw-text-opacity: 1;
+    color: rgba(217, 119, 6, var(--tw-text-opacity));
+}
 .text-gray-200 {
     --tw-text-opacity: 1;
     color: rgba(229, 231, 235, var(--tw-text-opacity));
@@ -1064,10 +1068,6 @@
 .text-gray-300 {
     --tw-text-opacity: 1;
     color: rgba(209, 213, 219, var(--tw-text-opacity));
-}
-.text-yellow-600 {
-    --tw-text-opacity: 1;
-    color: rgba(217, 119, 6, var(--tw-text-opacity));
 }
 .underline {
     text-decoration: underline;
